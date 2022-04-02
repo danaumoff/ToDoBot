@@ -1,0 +1,4 @@
+pyQiwiP2P==2.0.0
+aiogram==2.19
+aioschedule==0.5.2
+asyncio==3.4.3
