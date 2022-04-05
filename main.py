@@ -1,3 +1,7 @@
+# TODO:
+# 1. Admin-команды
+# 2. ?
+
 from aiogram import Bot, Dispatcher, executor, types
 import logging
 import sqlite3
@@ -6,6 +10,8 @@ from pyqiwip2p import QiwiP2P
 from pyqiwip2p.p2p_types import QiwiCustomer, QiwiDatetime
 import aioschedule
 import asyncio
+
+
 
 connect = sqlite3.connect("base.db")
 cursor = connect.cursor()
@@ -128,7 +134,7 @@ async def bot_message(message: types.Message):
         await bot.send_message(message.from_user.id, "Чтобы удалить дело введите команду: '/del <дело, которое хотите удалить>'")
     if message.text == "🌟Завершить дело🌟":
         await bot.send_message(message.from_user.id, "Чтобы завершить дело введите команду: '/finish <дело, которое хотите завершить>'")
-    if "/add" in message.text.lower():
+    if "/add" in message.text.lower() and message.text.lower().replace("/add", "").strip() != None:
         id = message.from_user.id
         affair = message.text.lower().replace("/add", "").strip()
         affair_add(affair, id)
@@ -159,7 +165,7 @@ async def notifications():
         await bot.send_message(user, "У вас есть " + str(get_user_affairs_count(user)) + " невыполненных дел!")
 
 async def scheduler():
-    aioschedule.every().day.at("17:37").do(notifications)
+    aioschedule.every().day.at("5:30").do(notifications)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
