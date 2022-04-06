@@ -162,10 +162,15 @@ async def bot_message(message: types.Message):
 
 async def notifications():
     for user in set(get_users_id()):
-        await bot.send_message(user, "У вас есть " + str(get_user_affairs_count(user)) + " невыполненных дел!")
+        if get_user_affairs_count(user) == 1:   
+            await bot.send_message(user, "У вас есть " + str(get_user_affairs_count(user)) + " невыполненное дело!")
+        if get_user_affairs_count(user) >= 5:   
+            await bot.send_message(user, "У вас есть " + str(get_user_affairs_count(user)) + " невыполненных дел!")
+        else:
+            await bot.send_message(user, "У вас есть " + str(get_user_affairs_count(user)) + " невыполненных дела!")
 
 async def scheduler():
-    aioschedule.every().day.at("5:30").do(notifications)
+    aioschedule.every(60).minutes.do(notifications)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
