@@ -22,9 +22,9 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS affairs (
     )""")
 
 logging.basicConfig(level=logging.INFO)
-bot = Bot(token="5172964049:AAFrvny8WcjjeCJbhB7btgWg9E8JjKgnsCo")
+bot = Bot(token="token")
 dp = Dispatcher(bot)
-p2p = QiwiP2P(auth_key="eyJ2ZXJzaW9uIjoiUDJQIiwiZGF0YSI6eyJwYXlpbl9tZXJjaGFudF9zaXRlX3VpZCI6Inc0dW5jai0wMCIsInVzZXJfaWQiOiI3OTgwMzI1MzMzNSIsInNlY3JldCI6IjNjNTYzNGM1YjZkM2IzYTJhOTJmNzliNDQwNjMzYzNlZTc5M2U5NTdiZDk5OTY2ODA5OGZkYjZlYzkwNWYxNDEifX0=")
+p2p = QiwiP2P(auth_key="token")
 
 def affair_add(affair, id):
     connect = sqlite3.connect("base.db")
@@ -180,8 +180,6 @@ async def on_startup(dp):
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
-
-
 
 
 
